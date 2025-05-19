@@ -26,9 +26,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version      = 2021030800;      // The current plugin version (Date: YYYYMMDDXX).
-$plugin->release      = 2021030800;      // Keep in lockstep with version.
-$plugin->requires     = 2022041908; // Support Moodle 4.0 and higher.
+$plugin->version      = 2025051900;
+$plugin->release      = 2025051900;
+$plugin->requires     = 2023100900; // Moodle 4.3.0
 $plugin->component    = 'factor_loginbanner';
 $plugin->maturity     = MATURITY_STABLE;
-$plugin->dependencies = ['tool_mfa' => 2019102400];
+$plugin->dependencies = ['tool_mfa' => 2023031600]; // tool_mfa at time of core MDL-78509 import
+$plugin->supported    = [403, 500];
