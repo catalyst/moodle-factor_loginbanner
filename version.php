@@ -28,8 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version      = 2025051900;
 $plugin->release      = 2025051900;
-$plugin->requires     = 2023100900; // Moodle 4.3.0
+$plugin->requires     = 2023100900; // Moodle 4.3.0.
 $plugin->component    = 'factor_loginbanner';
 $plugin->maturity     = MATURITY_STABLE;
-$plugin->dependencies = ['tool_mfa' => 2023031600]; // tool_mfa at time of core MDL-78509 import
+$plugin->dependencies = ['tool_mfa' => 2023031600]; // Version of tool_mfa at time of core MDL-78509 import.
 $plugin->supported    = [403, 500];
