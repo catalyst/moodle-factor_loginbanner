@@ -35,8 +35,25 @@ class factor extends object_factor_base {
      * @param stdClass $user the user to check against.
      * @return array
      */
-    public function get_all_user_factors($user) {
-        return $this->get_singleton_user_factor($user);
+    public function get_all_user_factors(\stdClass $user): array {
+        global $DB;
+        $records = $DB->get_records('tool_mfa', ['userid' => $user->id, 'factor' => $this->name]);
+
+        if (!empty($records)) {
+            return $records;
+        }
+
+        // Null records returned, build new record.
+        $record = [
+            'userid' => $user->id,
+            'factor' => $this->name,
+            'timecreated' => time(),
+            'createdfromip' => $user->lastip,
+            'timemodified' => time(),
+            'revoked' => 0,
+        ];
+        $record['id'] = $DB->insert_record('tool_mfa', $record, true);
+        return [(object) $record];
     }
 
     /**
@@ -44,7 +61,7 @@ class factor extends object_factor_base {
      *
      * {@inheritDoc}
      */
-    public function has_input() {
+    public function has_input(): bool {
         return true;
     }
 
@@ -54,7 +71,7 @@ class factor extends object_factor_base {
      * @param \MoodleQuickForm $mform
      * @return object $mform
      */
-    public function login_form_definition($mform) {
+    public function login_form_definition(\MoodleQuickForm $mform): \MoodleQuickForm {
         $mform->addElement('html', get_string('policytext', 'factor_loginbanner'));
         return $mform;
     }
@@ -66,7 +83,7 @@ class factor extends object_factor_base {
      *
      * {@inheritDoc}
      */
-    public function process_cancel_action() {
+    public function process_cancel_action(): void {
         global $CFG;
 
         $this->set_state(\tool_mfa\plugininfo\factor::STATE_FAIL);
@@ -79,7 +96,7 @@ class factor extends object_factor_base {
      *
      * @param \stdClass $user
      */
-    public function possible_states($user) {
+    public function possible_states(\stdClass $user): array {
         // Policy can only return a pass or fail when known.
         return [
             \tool_mfa\plugininfo\factor::STATE_FAIL,

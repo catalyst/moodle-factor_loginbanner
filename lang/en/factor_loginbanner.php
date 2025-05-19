@@ -25,8 +25,11 @@
 
 $string['info'] = 'This factor forces users to read and accept a policy, otherwise they will be unable to authenticate to the system';
 $string['loginskip'] = 'Decline and log out';
+$string['loginoption'] = 'Accept login banner';
 $string['loginsubmit'] = 'Accept';
 $string['pluginname'] = 'Login banner';
 $string['policytext'] = '<p>This is a placeholder policy text. This can be overridden in the sites language pack configuration menu.</p>';
 $string['privacy:metadata'] = 'The Policy factor plugin does not store any personal data';
 $string['summarycondition'] = 'accepts the user policy';
+$string['logintitle'] = 'Accept user policy';
+$string['logindesc'] = '';
